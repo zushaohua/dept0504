@@ -1,0 +1,30 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.database.dept0319.mapper.SpeedTestMapper">
+    <select id="findByID" parameterType="Integer" resultType="com.database.dept0319.entity.SpeedTest">
+        select * from speedtest where speedno =#{value}
+    </select>
+
+    <select id="findAll" resultType="java.util.Map">
+    select * from speedtest
+    </select>
+
+<insert id="create" parameterType="com.database.dept0319.entity.SpeedTest">
+INSERT INTO `speed`.`speedtest`(`speedno`, `province`, `city`, `name`, `broadbandid`, `speedvalue`, `packetlench`, `date`)
+VALUES (#{speedno}, #{province}, #{city}, #{name}, #{broadbandid}, #{speedvalue}, #{packetlench}, #{date});
+    <selectKey keyProperty="speedno" keyColumn="speedno" resultType="Integer" order="AFTER" >
+        select LAST_INSERT_ID()
+    </selectKey>
+</insert>
+    <insert id="update" parameterType="com.database.dept0319.entity.SpeedTest">
+        UPDATE `speed`.`speedtest` SET `province` = #{province}, `city` = #{city}, `name` = #{name}, `broadbandid` = #{broadbandid}, `speedvalue` = #{speedvalue}, `packetlench` = #{packetlench}, `date` = #{date}
+        WHERE `speedno` = #{speedno};
+    </insert>
+
+    <delete id="delete" parameterType="Integer">
+    delete from speedtest where speedno = #{value}
+    </delete>
+
+
+</mapper>
